@@ -1,0 +1,24 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
+}
+
+group = 'com.hancy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+dependencies {
+	// Spring boot starters
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Open feign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    
+    // Euereka client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+}

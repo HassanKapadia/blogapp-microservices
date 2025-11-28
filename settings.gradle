@@ -1,2 +1,11 @@
 rootProject.name = 'blogapp-microservices'
-include 'eureka-server', 'api-gateway', 'auth-service', 'user-service', 'article-service', 'comment-service', 'ui-service'
+
+include(
+    'backend:api-gateway',
+    'backend:article-service',
+    'backend:auth-service',
+    'backend:comment-service',
+    'backend:common',
+    'backend:eureka-server',
+    'backend:user-service'
+)

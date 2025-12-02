@@ -19,9 +19,6 @@ dependencies {
     // Euereka client
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     
-    // Common module
-    implementation project(':backend:common')
-    
     // Database
     runtimeOnly 'org.postgresql:postgresql'
 }

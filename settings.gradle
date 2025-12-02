@@ -5,7 +5,6 @@ include(
     'backend:article-service',
     'backend:auth-service',
     'backend:comment-service',
-    'backend:common',
     'backend:eureka-server',
     'backend:user-service'
 )

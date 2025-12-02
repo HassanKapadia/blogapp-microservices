@@ -8,6 +8,7 @@ import com.hancy.user.model.User;
 import com.hancy.user.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional
   public UserResponse createUser(CreateUserRequest req) {
     if (userRepo.existsByEmail(req.getEmail())) {
       throw new RuntimeException("User with this email already exists");
@@ -42,6 +44,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional
   public UserResponse updateUser(Long id, UpdateUserRequest req, Long authUserId) {
     if (!id.equals(authUserId)) {
       throw new RuntimeException("You can update only your own account");
@@ -49,8 +52,13 @@ public class UserServiceImpl implements UserService {
 
     User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
-    user.setName(req.getName());
-    user.setBio(req.getBio());
+    if (req.getName() != null) {
+      user.setName(req.getName());
+    }
+
+    if (req.getBio() != null) {
+      user.setBio(req.getBio());
+    }
 
     userRepo.save(user);
 
@@ -64,6 +72,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Transactional
   public void deleteUser(Long id, Long authUserId) {
     if (!id.equals(authUserId)) {
       throw new RuntimeException("You cannot delete another user's account");

@@ -1,6 +1,7 @@
 package com.hancy.user.service;
 
-import com.hancy.user.dto.CreateUserRequest;
+import com.hancy.blogapp.common.dto.CreateUserRequest;
+import com.hancy.blogapp.common.dto.UserAuthResponse;
 import com.hancy.user.dto.UpdateUserRequest;
 import com.hancy.user.dto.UserResponse;
 import com.hancy.user.mapper.UserMapper;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public UserResponse createUser(CreateUserRequest req) {
+  public UserAuthResponse createUser(CreateUserRequest req) {
     if (userRepo.existsByEmail(req.getEmail())) {
       throw new RuntimeException("User with this email already exists");
     }
@@ -40,7 +41,8 @@ public class UserServiceImpl implements UserService {
 
     userRepo.save(user);
 
-    return UserMapper.toResponse(user);
+    return new UserAuthResponse(
+        user.getId(), user.getEmail(), user.getUsername(), user.getPassword());
   }
 
   @Override
@@ -69,6 +71,14 @@ public class UserServiceImpl implements UserService {
   public UserResponse getUserById(Long id) {
     User user = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     return UserMapper.toResponse(user);
+  }
+
+  @Override
+  public UserAuthResponse getUserByEmail(String email) {
+    User user =
+        userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    return new UserAuthResponse(
+        user.getId(), user.getEmail(), user.getUsername(), user.getPassword());
   }
 
   @Override

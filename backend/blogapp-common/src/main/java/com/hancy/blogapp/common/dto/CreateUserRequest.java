@@ -1,4 +1,4 @@
-package com.hancy.user.dto;
+package com.hancy.blogapp.common.dto;
 
 public class CreateUserRequest {
 

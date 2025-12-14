@@ -3,6 +3,7 @@ package com.hancy.article.web;
 import com.hancy.article.dto.ArticleRequest;
 import com.hancy.article.dto.ArticleResponse;
 import com.hancy.article.service.ArticleService;
+import com.hancy.blogapp.common.constants.BlogAppHeaderConstants;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,13 +47,14 @@ public class ArticleController {
   public ResponseEntity<ArticleResponse> update(
       @PathVariable("id") Long id,
       @RequestBody ArticleRequest req,
-      @RequestHeader("X-Auth-UserId") Long authUserId) {
+      @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {
     return ResponseEntity.ok(articleService.update(id, req, authUserId));
   }
 
   @DeleteMapping("/{id")
   public ResponseEntity<ArticleResponse> delete(
-      @PathVariable("id") Long id, @RequestHeader("X-Auth-UserId") Long authUserId) {
+      @PathVariable("id") Long id,
+      @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {
     articleService.delete(id, authUserId);
     return ResponseEntity.noContent().build();
   }

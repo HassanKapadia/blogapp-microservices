@@ -1,5 +1,6 @@
 package com.hancy.comment.web;
 
+import com.hancy.blogapp.common.constants.BlogAppHeaderConstants;
 import com.hancy.comment.dto.CommentRequest;
 import com.hancy.comment.dto.CommentResponse;
 import com.hancy.comment.service.CommentService;
@@ -42,13 +43,14 @@ public class CommentController {
   public ResponseEntity<CommentResponse> update(
       @PathVariable("id") Long id,
       @RequestBody CommentRequest req,
-      @RequestHeader("X-Auth-UserId") Long authUserId) {
+      @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {
     return ResponseEntity.ok(commentService.update(id, req, authUserId));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(
-      @PathVariable("id") Long id, @RequestHeader("X-Auth-UserId") Long authUserId) {
+      @PathVariable("id") Long id,
+      @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {
     commentService.delete(id, authUserId);
     return ResponseEntity.noContent().build();
   }

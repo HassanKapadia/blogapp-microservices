@@ -6,5 +6,6 @@ include(
     'backend:auth-service',
     'backend:comment-service',
     'backend:eureka-server',
-    'backend:user-service'
+    'backend:user-service',
+    'backend:blogapp-common'
 )

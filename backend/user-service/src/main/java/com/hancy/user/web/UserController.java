@@ -1,6 +1,8 @@
 package com.hancy.user.web;
 
-import com.hancy.user.dto.CreateUserRequest;
+import com.hancy.blogapp.common.constants.BlogAppHeaderConstants;
+import com.hancy.blogapp.common.dto.CreateUserRequest;
+import com.hancy.blogapp.common.dto.UserAuthResponse;
 import com.hancy.user.dto.UpdateUserRequest;
 import com.hancy.user.dto.UserResponse;
 import com.hancy.user.service.UserService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,10 +31,16 @@ public class UserController {
     this.userService = userService;
   }
 
-  @PostMapping
-  public ResponseEntity<UserResponse> create(@RequestBody CreateUserRequest req) {
-    UserResponse createdUser = userService.createUser(req);
+  @PostMapping("/internal")
+  public ResponseEntity<UserAuthResponse> create(@RequestBody CreateUserRequest req) {
+    UserAuthResponse createdUser = userService.createUser(req);
     return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+  }
+
+  @GetMapping("/internal/by-email")
+  public ResponseEntity<UserAuthResponse> getUserByEmail(@RequestParam String email) {
+    UserAuthResponse user = userService.getUserByEmail(email);
+    return ResponseEntity.ok(user);
   }
 
   @GetMapping("/{id}")
@@ -44,14 +53,15 @@ public class UserController {
   public ResponseEntity<UserResponse> update(
       @PathVariable("id") Long id,
       @RequestBody UpdateUserRequest req,
-      @RequestHeader("X-Auth-UserId") Long authUserId) {
+      @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {
     UserResponse updatedUser = userService.updateUser(id, req, authUserId);
     return ResponseEntity.ok(updatedUser);
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> delete(
-      @PathVariable("id") Long id, @RequestHeader("X-Auth-UserId") Long authUserId) {
+      @PathVariable("id") Long id,
+      @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {
     userService.deleteUser(id, authUserId);
     return ResponseEntity.noContent().build();
   }

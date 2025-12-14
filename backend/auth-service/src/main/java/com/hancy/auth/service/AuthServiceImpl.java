@@ -40,8 +40,10 @@ public class AuthServiceImpl implements AuthService {
   public AuthResponse signup(CreateUserRequest request) {
     // Hashing password prior to user creation
     request.setPassword(passwordEncoder.encode(request.getPassword()));
+
     UserAuthResponse user = userClient.create(request);
     String token = jwtUtil.generateToken(user.getId(), user.getEmail());
+
     return new AuthResponse(token, user.getId(), user.getEmail());
   }
 }

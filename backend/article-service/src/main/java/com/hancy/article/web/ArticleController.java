@@ -43,7 +43,7 @@ public class ArticleController {
     return ResponseEntity.ok(articleService.get(id));
   }
 
-  @PutMapping("/{id")
+  @PutMapping("/{id}")
   public ResponseEntity<ArticleResponse> update(
       @PathVariable("id") Long id,
       @RequestBody ArticleRequest req,
@@ -51,7 +51,7 @@ public class ArticleController {
     return ResponseEntity.ok(articleService.update(id, req, authUserId));
   }
 
-  @DeleteMapping("/{id")
+  @DeleteMapping("/{id}")
   public ResponseEntity<ArticleResponse> delete(
       @PathVariable("id") Long id,
       @RequestHeader(BlogAppHeaderConstants.AUTH_USER_ID) Long authUserId) {

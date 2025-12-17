@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserServiceClient {
 
   @GetMapping("/api/users/internal/by-email")
-  UserAuthResponse getUserByEmail(@RequestParam String email);
+  UserAuthResponse getUserByEmail(@RequestParam("email") String email);
 
   @PostMapping("/api/users/internal")
   UserAuthResponse create(@RequestBody CreateUserRequest req);

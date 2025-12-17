@@ -14,7 +14,6 @@ dependencies {
 	// Spring boot starters
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     
     // Password hashing
     implementation 'org.springframework.security:spring-security-crypto'
@@ -24,7 +23,4 @@ dependencies {
     
     // Euereka client
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    
-	// Database
-    runtimeOnly 'org.postgresql:postgresql'
 }

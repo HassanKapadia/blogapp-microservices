@@ -7,6 +7,8 @@ public class UserAuthResponse {
   private String username;
   private String password;
 
+  public UserAuthResponse() {}
+
   public UserAuthResponse(Long id, String email, String username, String password) {
     this.id = id;
     this.email = email;

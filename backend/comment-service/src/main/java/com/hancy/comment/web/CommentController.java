@@ -29,7 +29,7 @@ public class CommentController {
   }
 
   @PostMapping
-  public ResponseEntity<CommentResponse> create(CommentRequest req) {
+  public ResponseEntity<CommentResponse> create(@RequestBody CommentRequest req) {
     return ResponseEntity.ok(commentService.create(req));
   }
 
@@ -37,6 +37,11 @@ public class CommentController {
   public ResponseEntity<List<CommentResponse>> listAllByArticle(
       @PathVariable("articleId") Long articleId) {
     return ResponseEntity.ok(commentService.getByArticleId(articleId));
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<CommentResponse> get(@PathVariable("id") Long id) {
+    return ResponseEntity.ok(commentService.getById(id));
   }
 
   @PutMapping("/{id}")

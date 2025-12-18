@@ -15,4 +15,6 @@ public interface CommentService {
   public void delete(Long id, Long authUserId);
 
   public void deleteByArticleId(Long articleId);
+
+  public CommentResponse getById(Long id);
 }

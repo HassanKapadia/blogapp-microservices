@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../api/apiClient";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../auth/useAuth";
+import { formatDateTime } from "../utils/dateUtils";
 
 export default function Articles() {
   const [articles, setArticles] = useState([]);
@@ -46,32 +47,39 @@ export default function Articles() {
     <div>
       <Navbar />
       <h2>Articles</h2>
+
       {articles.length === 0 && <p>No articles found.</p>}
 
       {articles.map((a) => (
         <div
           key={a.id}
           style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
+            border: "1px solid #ddd",
+            padding: "12px",
+            marginBottom: "12px",
+            borderRadius: "6px",
+            background: "#fff",
           }}
         >
-          {/* Only show title */}
           <h3>
             <Link to={`/articles/${a.id}`}>{a.title}</Link>
           </h3>
 
-          {/* Edit/Delete buttons only for author */}
+          {/* Only Created date shown (Updated hidden on list view) */}
+          <p style={{ fontSize: "0.85rem", color: "#666" }}>
+            Created: {formatDateTime(a.createdOn)}
+          </p>
+
           {user && user.id === a.authorId && (
-            <div>
-              <button onClick={() => editArticle(a.id)}>Edit</button>
+            <div style={{ marginTop: "6px" }}>
+              <button onClick={() => editArticle(a.id)}>Edit</button>{" "}
               <button onClick={() => deleteArticle(a.id)}>Delete</button>
             </div>
           )}
 
-          {/* View details link */}
-          <Link to={`/articles/${a.id}`}>View Details / Comments</Link>
+          <div style={{ marginTop: "6px" }}>
+            <Link to={`/articles/${a.id}`}>View Details / Comments</Link>
+          </div>
         </div>
       ))}
     </div>

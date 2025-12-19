@@ -11,11 +11,19 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{ marginBottom: "20px" }}>
-      <Link to="/">Home</Link> |{" "}
-      <Link to="/article/new">New Article</Link> |{" "}
-      <Link to="/account">My Account</Link> |{" "}
-      <span>Welcome {user?.name}</span> |{" "}
+    <nav>
+      {/* Left side */}
+      <div className="flex gap-2">
+        <span style={{ color: "#ffffff", fontWeight: "600" }}>
+          Welcome, {user?.name}
+        </span>
+
+        <Link to="/">Home</Link>
+        <Link to="/article/new">New Article</Link>
+        <Link to="/account">My Account</Link>
+      </div>
+
+      {/* Right side */}
       <button onClick={doLogout}>Logout</button>
     </nav>
   );

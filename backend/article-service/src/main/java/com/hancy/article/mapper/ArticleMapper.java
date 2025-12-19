@@ -12,7 +12,7 @@ public class ArticleMapper {
     articleResponse.setContent(article.getContent());
     articleResponse.setAuthorId(article.getAuthorId());
     articleResponse.setCreatedOn(article.getCreatedOn());
-    articleResponse.setUpdatedOn(articleResponse.getUpdatedOn());
+    articleResponse.setUpdatedOn(article.getUpdatedOn());
     return articleResponse;
   }
 }
